@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\workout-tracker-backend\workout_tracker_backend.csproj" />
+  </ItemGroup>
+
 </Project>
