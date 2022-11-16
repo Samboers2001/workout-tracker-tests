@@ -1,5 +1,5 @@
 using workout_tracker_backend.Helpers;
-namespace workout_tracker_tests;
+namespace workout_tracker_tests.UnitTests;
 
 public class UserTests
 {
