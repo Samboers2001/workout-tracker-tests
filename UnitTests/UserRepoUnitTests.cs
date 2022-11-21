@@ -29,7 +29,7 @@ public class UserRepoUnitTests
         DatabaseContext.Database.EnsureCreated();
         if (await DatabaseContext.Users.CountAsync() <= 0)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1; i++)
             {
                 DatabaseContext.Users.Add(
                     new User()
