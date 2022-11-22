@@ -41,7 +41,7 @@ public class UserControllerIntegrationTests
 
 
     [Fact]
-    public async Task POST_testauthenticate_user()
+    public async Task POST_authenticate_user()
     {
         var response = await _httpClient.PostAsync("/api/user/authenticate", new StringContent(
             JsonConvert.SerializeObject(new AuthenticateRequest()
@@ -57,5 +57,26 @@ public class UserControllerIntegrationTests
         response.EnsureSuccessStatusCode();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+        [Fact]
+        public async Task GET_get_user_by_id()
+        {
+            await POST_authenticate_user();
+            var response = await _httpClient.GetAsync("/api/user/" + 1);
 
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var user = JsonConvert.DeserializeObject<UserReadDto>(await response.Content.ReadAsStringAsync());
+            System.Console.WriteLine($"getuserbyid: {userId}");
+            user.Email.Should().Be("sam@boers.family");
+        }
+
+        [Fact]
+        public async Task GET_gets_all_users()
+        {
+            await POST_authenticate_user();
+            var response = await _httpClient.GetAsync("/api/user");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var users = JsonConvert.DeserializeObject<UserReadDto[]>(await response.Content.ReadAsStringAsync());
+            users.Should().HaveCount(3);
+        }
 }
